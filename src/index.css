@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -10,7 +10,7 @@
   }
   
   body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -18,14 +18,125 @@
   }
 }
 
-/* Smooth transitions for hover effects */
-.transition-all {
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
+/* ----- Animations ----- */
+.animate-slide-up {
+  animation: slideUp 0.6s ease-out;
+}
+.animate-slide-down {
+  animation: slideDown 0.6s ease-out;
+}
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out;
 }
 
-/* Hover animations for project cards */
-.hover\:shadow-xl:hover {
-  transform: translateY(-4px);
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ----- Gradients and efects ----- */
+.gradient-text {
+  background: linear-gradient(to right, #F76C6C, #f85858);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-10px) scale(1.02);
+}
+
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.nav-blur {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d3436 100%);
+}
+
+.text-glow {
+  text-shadow: 0 0 10px rgba(247, 108, 108, 0.5);
+}
+
+.border-glow {
+  box-shadow: 0 0 10px rgba(247, 108, 108, 0.3);
+}
+
+/* ----- Skill card style with blur ----- */
+.skill-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+.skill-card:hover {
+  border-color: #F76C6C;
+  transform: translateY(-5px);
+}
+
+/* ----- Project card ----- */
+.project-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: none;
+}
+
+.project-card__image {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card__image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.project-card__image:hover::before {
+  opacity: 1;
+}
+
+.project-text:hover {
+  transform: translateY(-2px);
 }

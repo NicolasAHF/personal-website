@@ -1,23 +1,23 @@
 export const skills = {
   Frontend: [
     { name: 'React.js', level: 'Advanced' },
-    { name: 'TypeScript', level: 'Advanced' },
-    { name: 'Next.js', level: 'Advanced' },
-    { name: 'Tailwind CSS', level: 'Advanced' },
-    { name: 'Vue.js', level: 'Intermediate' }
+    { name: 'TypeScript', level: 'Intermediate' },
+    { name: 'Next.js', level: 'Intermediate' },
+    { name: 'Tailwind CSS', level: 'Intermediate' },
+    { name: 'Angular', level: 'Intermediate' }
   ],
   Backend: [
     { name: 'Node.js', level: 'Advanced' },
-    { name: 'Python', level: 'Advanced' },
+    { name: '.NET', level: 'Advanced' },
     { name: 'PostgreSQL', level: 'Advanced' },
-    { name: 'MongoDB', level: 'Intermediate' },
-    { name: 'GraphQL', level: 'Intermediate' }
+    { name: 'MongoDB', level: 'Advanced' },
+    { name: 'Firebase', level: 'Intermediate' }
   ],
   Tools: [
-    { name: 'Docker', level: 'Advanced' },
+    { name: 'Docker', level: 'Intermediate' },
     { name: 'Git', level: 'Advanced' },
-    { name: 'AWS', level: 'Intermediate' },
-    { name: 'CI/CD', level: 'Advanced' },
-    { name: 'Jest', level: 'Advanced' }
+    { name: 'Teamcity', level: 'Intermediate' },
+    { name: 'CI/CD', level: 'Intermediate' },
+    { name: 'Playwright', level: 'Advanced' }
   ]
 };
