@@ -61,7 +61,7 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleDarkMode, isVisible, la
             onClick={toggleLanguage}
             className="p-2 rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors"
           >
-            {language === "en" ? "EN" : "ES"}
+            <p className={darkMode ? "text-white" : "text-gray-900"}>{language === "en" ? "EN" : "ES"}</p>
           </button>
         </div>
       </div>
