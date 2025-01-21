@@ -64,7 +64,7 @@ const Contact: React.FC<ContactProps> = ({t}) => {
             </div>
           </div>
 
-          <form className="space-y-6">
+          <form className="space-y-6" netlify>
             <div>
               <label htmlFor="name" className="block text-lg font-medium text-white mb-2">
                 {t.contact.nameLabel}
