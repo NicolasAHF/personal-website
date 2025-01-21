@@ -1,35 +1,44 @@
 import React from "react";
 import { Download, ChevronDown } from "lucide-react";
 
-const Hero: React.FC = () => {
+interface HeroProps {
+  language: "en" | "es";
+  t: {
+    hero: {
+      title: string;
+      btnDownload: string;
+      btnProjects: string;
+    };
+  };
+}
+
+const Hero: React.FC<HeroProps> = ({t}) => {
   return (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center justify-center hero-gradient dark:bg-black"
-    >
-      <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:40px_40px]" />
-      <div className="container mx-auto px-6 py-32 relative">
+    <section id="home" className="relative min-h-screen flex items-center justify-center hero-gradient dark:bg-black">
+      <div className="absolute inset-0 bg-[size:40px_40px] bg-grid-white/[0.05]" />
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 py-32 relative">
         <div className="flex flex-col md:flex-row items-center justify-between gap-16">
           <div className="md:w-1/2 space-y-8 animate-slide-up">
             <h1 className="text-6xl md:text-7xl font-bold text-white text-glow">
               <span className="gradient-text">Nicolas Hernandez</span>
-              <span className="block mt-4 text-4xl md:text-5xl">Full Stack Engineer</span>
+              <span className="block mt-4 text-4xl md:text-5xl">{t.hero.title}</span>
             </h1>
             <p className="text-xl text-gray-300 max-w-xl">
-              Crafting exceptional digital experiences through innovative code and creative solutions.
+              Crafting digital experiences through innovative code and creative solutions.
             </p>
             <div className="flex flex-wrap gap-4">
               <button className="px-8 py-4 bg-secondary hover:bg-opacity-90 text-white rounded-full font-medium transition-all transform hover:scale-105 flex items-center gap-2 border-glow">
-                <Download size={20} /> Download CV
+                <Download size={20} />
+                  {t.hero.btnDownload}
               </button>
               <button className="px-8 py-4 border-2 border-white/20 hover:border-secondary text-white rounded-full font-medium transition-all transform hover:scale-105">
-                View Projects
+                {t.hero.btnProjects}
               </button>
             </div>
           </div>
-          <div className="md:w-1/2 animate-fade-in">
+          <div className="md:w-1/4 animate-fade-in">
             <img
-              src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              src="./src/images/profile.jpeg"
               alt="Developer workspace"
               className="rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-500"
             />

@@ -4,20 +4,20 @@ import Hero from "./components/Hero";
 import About from "./components/About";
 import Projects from "./components/Projects";
 import Skills from "./components/Skills";
+import Experience from "./components/Experience";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-import Experience from "./components/Experience";
+import { translations } from "./data/translation";
 
 const App: React.FC = () => {
-  const [darkMode, setDarkMode] = useState<boolean>(true);
-  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [darkMode, setDarkMode] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
+  const [language, setLanguage] = useState<"en" | "es">("en");
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollPos = window.pageYOffset;
-      setIsVisible(currentScrollPos > 100);
+      setIsVisible(window.scrollY > 100);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -30,20 +30,21 @@ const App: React.FC = () => {
     }
   }, [darkMode]);
 
-  const toggleDarkMode = () => {
-    setDarkMode((prev) => !prev);
+  const toggleLanguage = () => {
+    setLanguage((prev) => (prev === "en" ? "es" : "en"));
   };
 
   return (
     <div className="min-h-screen bg-light dark:bg-dark transition-colors duration-500">
-      <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} isVisible={isVisible} />
-      <Hero />
-      <About />
-      <Experience />
-      <Projects />
-      <Skills />
-      <Contact />
-      <Footer />
+      <Navbar darkMode={darkMode} toggleDarkMode={() => setDarkMode(!darkMode)} isVisible={isVisible} language={language}
+        toggleLanguage={toggleLanguage}
+        t={translations[language]}  />
+      <Hero language={language} t={translations[language]}/>
+      <About t={translations[language]}/>
+      <Projects t={translations[language]}/>
+      <Skills t={translations[language]}/>
+      <Experience t={translations[language]}/>
+      <Contact t={translations[language]}/>
     </div>
   );
 };

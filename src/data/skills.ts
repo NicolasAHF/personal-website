@@ -9,7 +9,7 @@ export const skills = {
   Backend: [
     { name: 'Node.js', level: 'Advanced' },
     { name: '.NET', level: 'Advanced' },
-    { name: 'PostgreSQL', level: 'Advanced' },
+    { name: 'PostgreSQL', level: 'Intermediate' },
     { name: 'MongoDB', level: 'Advanced' },
     { name: 'Firebase', level: 'Intermediate' }
   ],

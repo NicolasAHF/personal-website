@@ -1,11 +1,20 @@
 import React from "react";
 import { skills } from "../data/skills";
 
-const Skills: React.FC = () => {
+interface SkillsProps {
+  t: {
+    skills: {
+      title: string;
+    };
+  };
+}
+
+
+const Skills: React.FC<SkillsProps> = ({t}) => {
   return (
     <section id="skills" className="py-32 bg-white dark:bg-dark/50">
       <div className="container mx-auto px-6">
-        <h2 className="text-5xl font-bold text-center mb-16 gradient-text">Technical Skills</h2>
+        <h2 className="text-5xl font-bold text-center mb-16 gradient-text">{t.skills.title}</h2>
         <div className="grid md:grid-cols-3 gap-12">
           {Object.entries(skills).map(([category, items]) => (
             <div key={category} className="space-y-6">

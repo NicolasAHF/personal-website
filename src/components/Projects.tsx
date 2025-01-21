@@ -1,12 +1,20 @@
 import React from "react";
-import { projects } from "../data/projects"; // Ajusta la ruta si es necesario
+import { projects } from "../data/projects";
 
-const Projects: React.FC = () => {
+interface ProjectProps {
+  t: {
+    projects: {
+      title: string;
+    };
+  };
+}
+
+const Projects: React.FC<ProjectProps> = ({t}) => {
   return (
     <section id="projects" className="py-32 bg-light dark:bg-dark">
       <div className="container mx-auto px-6">
         <h2 className="text-5xl font-bold text-center mb-16 gradient-text">
-          Featured Projects
+          {t.projects.title}
         </h2>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
