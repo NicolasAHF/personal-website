@@ -38,7 +38,7 @@ const Projects: React.FC<ProjectProps> = ({t}) => {
                                 pointer-events-none"
                 />
               </div>
-              <div className="p-8">
+              <div className="p-8 dark:bg-white/[.05]">
                 <h3 className="text-2xl font-bold text-primary dark:text-white mb-4">
                   {project.title}
                 </h3>
