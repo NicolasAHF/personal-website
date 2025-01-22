@@ -38,8 +38,8 @@ const Hero: React.FC<HeroProps> = ({t}) => {
           </div>
           <div className="md:w-1/4 animate-fade-in">
             <img
-              src="../images/profile.jpeg"
-              alt="Developer workspace"
+              src="/images/profile.jpeg"
+              alt="Profile Photo"
               className="rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-500"
             />
           </div>
