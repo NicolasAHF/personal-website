@@ -64,7 +64,7 @@ const Contact: React.FC<ContactProps> = ({t}) => {
             </div>
           </div>
 
-          <form className="space-y-6" method="POST" data-netlify="true">
+          <form className="space-y-6" method="POST" data-netlify="true" name="contact">
             <input type="hidden" name="form-name" value="contact" />
             <div>
               <label htmlFor="name" className="block text-lg font-medium text-white mb-2">
