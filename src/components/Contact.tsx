@@ -15,18 +15,44 @@ interface ContactProps {
       emailPlaceholcer: string;
       sendMessage: string;
       sentMessage: string;
+      sending: string;
     };
   };
 }
 
+function encodeForm(data: Record<string, string>) {
+  return Object.keys(data)
+    .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    .join("&");
+}
+
 const Contact: React.FC<ContactProps> = ({t}) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSending, setIsSending] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSending(true);
+
     const form = e.currentTarget;
-    form.submit();
-    setIsSubmitted(true);
+    const formData = new FormData(form);
+    const dataObj: Record<string, string> = {};
+    formData.forEach((value, key) => {
+      dataObj[key] = value.toString();
+    });
+
+    try {
+      await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encodeForm(dataObj),
+      });
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -123,14 +149,18 @@ const Contact: React.FC<ContactProps> = ({t}) => {
             </div>
             <button
               type="submit"
-              disabled={isSubmitted}
+              disabled={isSubmitted || isSending}
               className={`w-full px-8 py-4 rounded-xl font-medium transition-all transform border-glow ${
                 isSubmitted
                   ? "bg-green-500 cursor-default"
                   : "bg-secondary hover:bg-opacity-90"
               } text-white`}
             >
-              {isSubmitted ? t.contact.sentMessage : t.contact.sendMessage}
+              {isSubmitted
+                ? t.contact.sentMessage
+                : isSending
+                ? t.contact.sending
+                : t.contact.sendMessage}
             </button>
           </form>
         </div>
