@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Linkedin, Github as GitHub, Mail } from "lucide-react";
 
 interface ContactProps {
@@ -14,11 +14,21 @@ interface ContactProps {
       emailLabel: string;
       emailPlaceholcer: string;
       sendMessage: string;
+      sentMessage: string;
     };
   };
 }
 
 const Contact: React.FC<ContactProps> = ({t}) => {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    form.submit();
+    setIsSubmitted(true);
+  };
+
   return (
     <section id="contact" className="py-32 hero-gradient dark:bg-black">
       <div className="container mx-auto px-6">
@@ -64,8 +74,14 @@ const Contact: React.FC<ContactProps> = ({t}) => {
             </div>
           </div>
 
-          <form className="space-y-6" method="POST" data-netlify="true" name="contact">
+          <form onSubmit={handleSubmit} name="contact" method="POST"  data-netlify="true" data-netlify-honeypot="bot-field" className="space-y-6">
             <input type="hidden" name="form-name" value="contact" />
+            <p className="hidden">
+              <label>
+                Don’t fill this out if you're human:
+                <input name="bot-field" />
+              </label>
+            </p>
             <div>
               <label htmlFor="name" className="block text-lg font-medium text-white mb-2">
                 {t.contact.nameLabel}
@@ -76,6 +92,7 @@ const Contact: React.FC<ContactProps> = ({t}) => {
                 name="name"
                 className="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 focus:border-secondary focus:outline-none text-white"
                 placeholder={t.contact.namePlaceHolder}
+                required
               />
             </div>
             <div>
@@ -88,6 +105,7 @@ const Contact: React.FC<ContactProps> = ({t}) => {
                 name="email"
                 className="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 focus:border-secondary focus:outline-none text-white"
                 placeholder={t.contact.emailPlaceholcer}
+                required
               />
             </div>
             <div>
@@ -100,13 +118,19 @@ const Contact: React.FC<ContactProps> = ({t}) => {
                 rows={6}
                 className="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 focus:border-secondary focus:outline-none text-white"
                 placeholder={t.contact.messagePlaceholder}
+                required
               ></textarea>
             </div>
             <button
               type="submit"
-              className="w-full px-8 py-4 bg-secondary hover:bg-opacity-90 text-white rounded-xl font-medium transition-all transform hover:scale-105 border-glow"
+              disabled={isSubmitted}
+              className={`w-full px-8 py-4 rounded-xl font-medium transition-all transform border-glow ${
+                isSubmitted
+                  ? "bg-green-500 cursor-default"
+                  : "bg-secondary hover:bg-opacity-90"
+              } text-white`}
             >
-              {t.contact.sendMessage}
+              {isSubmitted ? t.contact.sentMessage : t.contact.sendMessage}
             </button>
           </form>
         </div>
