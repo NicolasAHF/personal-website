@@ -64,7 +64,8 @@ const Contact: React.FC<ContactProps> = ({t}) => {
             </div>
           </div>
 
-          <form className="space-y-6" netlify>
+          <form className="space-y-6" method="POST" data-netlify="true">
+            <input type="hidden" name="form-name" value="contact" />
             <div>
               <label htmlFor="name" className="block text-lg font-medium text-white mb-2">
                 {t.contact.nameLabel}
@@ -72,6 +73,7 @@ const Contact: React.FC<ContactProps> = ({t}) => {
               <input
                 type="text"
                 id="name"
+                name="name"
                 className="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 focus:border-secondary focus:outline-none text-white"
                 placeholder={t.contact.namePlaceHolder}
               />
@@ -83,6 +85,7 @@ const Contact: React.FC<ContactProps> = ({t}) => {
               <input
                 type="email"
                 id="email"
+                name="email"
                 className="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 focus:border-secondary focus:outline-none text-white"
                 placeholder={t.contact.emailPlaceholcer}
               />
@@ -93,6 +96,7 @@ const Contact: React.FC<ContactProps> = ({t}) => {
               </label>
               <textarea
                 id="message"
+                name="message"
                 rows={6}
                 className="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 focus:border-secondary focus:outline-none text-white"
                 placeholder={t.contact.messagePlaceholder}
