@@ -46,7 +46,9 @@ const App: React.FC = () => {
         <Experience t={translations[language]} />
       </div>
       <Projects t={translations[language]}/>
+      <div className="overflow-x-hidden">
       <Contact t={translations[language]}/>
+      </div>
     </div>
   );
 };

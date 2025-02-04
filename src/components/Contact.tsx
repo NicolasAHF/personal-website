@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { Linkedin, Github as GitHub, Mail } from "lucide-react";
+import { motion } from "framer-motion";
+import Confetti from "react-confetti";
+import { useWindowSize } from "react-use";
 
 interface ContactProps {
   t: {
@@ -26,9 +29,25 @@ function encodeForm(data: Record<string, string>) {
     .join("&");
 }
 
-const Contact: React.FC<ContactProps> = ({t}) => {
+// Animaciones para el botón con Framer Motion:
+const sendingVariants = {
+  idle: { scale: 1 },
+  sending: {
+    scale: [1, 1.07, 1],
+    transition: {
+      duration: 0.6,
+      repeat: Infinity,
+      ease: "easeInOut",
+    },
+  },
+};
+
+const Contact: React.FC<ContactProps> = ({ t }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSending, setIsSending] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
+
+  const { width, height } = useWindowSize();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -37,6 +56,7 @@ const Contact: React.FC<ContactProps> = ({t}) => {
     const form = e.currentTarget;
     const formData = new FormData(form);
     const dataObj: Record<string, string> = {};
+
     formData.forEach((value, key) => {
       dataObj[key] = value.toString();
     });
@@ -47,7 +67,13 @@ const Contact: React.FC<ContactProps> = ({t}) => {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: encodeForm(dataObj),
       });
+
       setIsSubmitted(true);
+      setShowConfetti(true);
+
+      setTimeout(() => {
+        setShowConfetti(false);
+      }, 3000);
     } catch (error) {
       console.error(error);
     } finally {
@@ -57,14 +83,35 @@ const Contact: React.FC<ContactProps> = ({t}) => {
 
   return (
     <section id="contact" className="py-32 hero-gradient dark:bg-black">
-      <div className="container mx-auto px-6">
-        <h2 className="text-5xl font-bold text-center mb-16 text-white">{t.contact.title}</h2>
+      <div className="container mx-auto px-6 relative">
+      {showConfetti && (
+          <Confetti
+            width={width}
+            height={height}
+            recycle={false} 
+            numberOfPieces={250}
+            gravity={0.3}
+            style={{ 
+              position: "fixed", 
+              top: 0, 
+              left: 0, 
+              zIndex: 9999,   // para que quede por encima de todo
+              pointerEvents: "none" 
+            }}
+          />
+        )}
+
+        <h2 className="text-5xl font-bold text-center mb-16 text-white">
+          {t.contact.title}
+        </h2>
+
         <div className="grid md:grid-cols-2 gap-16">
           <div className="space-y-8">
-            <h3 className="text-3xl font-bold text-white">{t.contact.subtitle}</h3>
-            <p className="text-xl text-gray-300">
-              {t.contact.text}
-            </p>
+            <h3 className="text-3xl font-bold text-white">
+              {t.contact.subtitle}
+            </h3>
+            <p className="text-xl text-gray-300">{t.contact.text}</p>
+
             <div className="space-y-6">
               <a
                 href="https://linkedin.com"
@@ -100,7 +147,14 @@ const Contact: React.FC<ContactProps> = ({t}) => {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} name="contact" method="POST"  data-netlify="true" data-netlify-honeypot="bot-field" className="space-y-6">
+          <form
+            onSubmit={handleSubmit}
+            name="contact"
+            method="POST"
+            data-netlify="true"
+            data-netlify-honeypot="bot-field"
+            className="space-y-6"
+          >
             <input type="hidden" name="form-name" value="contact" />
             <p className="hidden">
               <label>
@@ -108,60 +162,88 @@ const Contact: React.FC<ContactProps> = ({t}) => {
                 <input name="bot-field" />
               </label>
             </p>
+
             <div>
-              <label htmlFor="name" className="block text-lg font-medium text-white mb-2">
+              <label
+                htmlFor="name"
+                className="block text-lg font-medium text-white mb-2"
+              >
                 {t.contact.nameLabel}
               </label>
               <input
                 type="text"
                 id="name"
                 name="name"
-                className="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 focus:border-secondary focus:outline-none text-white"
+                className="w-full px-6 py-4 rounded-xl bg-white/5 border 
+                           border-white/10 focus:border-secondary 
+                           focus:outline-none text-white"
                 placeholder={t.contact.namePlaceHolder}
                 required
               />
             </div>
+
             <div>
-              <label htmlFor="email" className="block text-lg font-medium text-white mb-2">
+              <label
+                htmlFor="email"
+                className="block text-lg font-medium text-white mb-2"
+              >
                 {t.contact.emailLabel}
               </label>
               <input
                 type="email"
                 id="email"
                 name="email"
-                className="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 focus:border-secondary focus:outline-none text-white"
+                className="w-full px-6 py-4 rounded-xl bg-white/5 border 
+                           border-white/10 focus:border-secondary 
+                           focus:outline-none text-white"
                 placeholder={t.contact.emailPlaceholcer}
                 required
               />
             </div>
+
             <div>
-              <label htmlFor="message" className="block text-lg font-medium text-white mb-2">
+              <label
+                htmlFor="message"
+                className="block text-lg font-medium text-white mb-2"
+              >
                 {t.contact.messageLabel}
               </label>
               <textarea
                 id="message"
                 name="message"
                 rows={6}
-                className="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 focus:border-secondary focus:outline-none text-white"
+                className="w-full px-6 py-4 rounded-xl bg-white/5 border 
+                           border-white/10 focus:border-secondary 
+                           focus:outline-none text-white"
                 placeholder={t.contact.messagePlaceholder}
                 required
               ></textarea>
             </div>
-            <button
+
+            <motion.button
               type="submit"
               disabled={isSubmitted || isSending}
-              className={`w-full px-8 py-4 rounded-xl font-medium transition-all transform border-glow ${
-                isSubmitted
-                  ? "bg-green-500 cursor-default"
-                  : "bg-secondary hover:bg-opacity-90"
-              } text-white`}
+              variants={sendingVariants}
+              animate={
+                isSending 
+                  ? "sending"
+                  : "idle"
+              }
+              className={`w-full px-8 py-4 rounded-xl font-medium 
+                          transition-all transform border-glow text-white 
+                          ${
+                            isSubmitted
+                              ? "bg-green-500 cursor-default"
+                              : "bg-secondary hover:bg-opacity-90"
+                          }`}
             >
               {isSubmitted
-                ? t.contact.sentMessage
+                ?
+                  `${t.contact.sentMessage} 🎉`
                 : isSending
                 ? t.contact.sending
                 : t.contact.sendMessage}
-            </button>
+            </motion.button>
           </form>
         </div>
       </div>
