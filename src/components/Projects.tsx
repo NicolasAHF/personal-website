@@ -1,5 +1,6 @@
 import React from "react";
 import { projects } from "../data/projects";
+import { motion } from "framer-motion";
 
 interface ProjectProps {
   t: {
@@ -9,21 +10,52 @@ interface ProjectProps {
   };
 }
 
-const Projects: React.FC<ProjectProps> = ({t}) => {
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+// Variantes para cada elemento:
+const itemVariants = {
+  hidden: { opacity: 0, y: 50 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5 },
+  },
+};
+
+const Projects: React.FC<ProjectProps> = ({ t }) => {
   return (
-    <section id="projects" className="py-32 bg-light dark:bg-dark">
+    <motion.section
+      id="projects"
+      className="py-32 bg-light dark:bg-dark"
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: false, amount: 0.1 }} 
+    >
       <div className="container mx-auto px-6">
         <h2 className="text-5xl font-bold text-center mb-16 gradient-text">
           {t.projects.title}
         </h2>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          variants={containerVariants}
+        >
           {projects.map((project, index) => (
-            <div
+            <motion.div
               key={index}
               className="project-card rounded-xl overflow-hidden 
-                         transform hover:scale-105 transition-all duration-500
-                         bg-white dark:bg-dark/50 shadow-xl"
+                        bg-white dark:bg-dark/50 shadow-xl"
+              variants={itemVariants}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
             >
               <div className="relative h-64 overflow-hidden group">
                 <img
@@ -31,13 +63,15 @@ const Projects: React.FC<ProjectProps> = ({t}) => {
                   alt={project.title}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-b 
-                                from-transparent to-black/70 
-                                opacity-0 group-hover:opacity-100 
-                                transition-opacity duration-300
-                                pointer-events-none"
+                <div
+                  className="absolute inset-0 bg-gradient-to-b 
+                             from-transparent to-black/70 
+                             opacity-0 group-hover:opacity-100 
+                             transition-opacity duration-300
+                             pointer-events-none"
                 />
               </div>
+
               <div className="p-8 dark:bg-white/[.05]">
                 <h3 className="text-2xl font-bold text-primary dark:text-white mb-4">
                   {project.title}
@@ -84,11 +118,11 @@ const Projects: React.FC<ProjectProps> = ({t}) => {
                   </a>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

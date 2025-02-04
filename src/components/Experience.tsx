@@ -1,5 +1,6 @@
-import React from "react";
-import { Briefcase } from "lucide-react";
+import React, { useState } from "react";
+import { motion } from 'framer-motion';
+import { Sparkles } from "lucide-react";
 import { experienceData } from "../data/experience";
 
 interface ExperienceProps {
@@ -10,49 +11,85 @@ interface ExperienceProps {
   };
 }
 
-const Experience: React.FC<ExperienceProps> = ({t}) => {
+const Experience: React.FC<ExperienceProps> = ({ t }) => {
+  const [showSparkles, setShowSparkles] = useState(false);
+  
+  const handleSparklesClick = () => {
+    setShowSparkles(true);
+    setTimeout(() => setShowSparkles(false), 500);
+  };
+
   return (
-    <section id="experience" className="py-32 bg-white dark:bg-dark/50">
-      <div className="container mx-auto px-6 max-w-2xl">
-        <h2 className="text-5xl font-bold text-center mb-16 gradient-text">
-          {t.experience.title}
-        </h2>
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: false, amount: 0.2, margin: '-100px' }}
+      className="mt-20"
+    >
+      <h3 className="text-2xl font-semibold text-[#1B263B] dark:text-white text-center mb-12">
+        {t.experience.title}{' '}
+        <motion.span
+          className="inline-block cursor-pointer"
+          whileHover={{ rotate: 360 }}
+          transition={{ duration: 0.5 }}
+          onClick={handleSparklesClick}
+        >
+          <Sparkles
+            className={`inline ${showSparkles ? 'text-yellow-400' : 'text-[#F76C6C]'}`}
+            size={24}
+          />
+        </motion.span>
+      </h3>
+      <div className="relative">
+        <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-[#F76C6C] dark:bg-gray-700" />
 
-        <div className="relative border-l border-gray-300 dark:border-gray-700">
-          {experienceData.map((exp, index) => (
-            <div key={index} className="mb-10 ml-8 relative">
-              <span className="absolute -left-4 flex items-center justify-center w-8 h-8 bg-secondary text-white rounded-full ring-4 ring-white dark:ring-dark">
-                <Briefcase size={16} />
-              </span>
-
-              <div className="flex items-center gap-4 mb-2">
-                <img
-                  src={exp.companyLogo}
-                  alt={`${exp.company} logo`}
-                  className="w-14 h-14 object-cover rounded-full border border-gray-200 dark:border-gray-800"
-                />
-                <div>
-                  <h3 className="text-xl font-semibold text-primary dark:text-white">
-                    {exp.role}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    {exp.company} &mdash;{" "}
-                    <span className="text-sm text-gray-500 dark:text-gray-400">
-                      {exp.period}
-                    </span>
-                  </p>
+        {experienceData.map((item, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.5, delay: index * 0.2 }}
+            className={`flex flex-col md:flex-row ${
+              index % 2 === 0 ? 'md:flex-row-reverse' : ''
+            } items-start md:items-center justify-center mb-8 gap-4`}
+          >
+            <div className={`w-full md:w-4/12 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg"
+                style={{ borderLeft: `4px solid ${item.color}` }}
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <img 
+                    src={item.logo} 
+                    alt={item.company}
+                    className="w-8 h-8 rounded-full object-cover"
+                  />
+                  <h4 className="text-xl font-semibold text-[#1B263B] dark:text-white">
+                    {item.role}
+                  </h4>
                 </div>
-              </div>
-              {exp.description && (
-                <p className="text-gray-600 dark:text-gray-300 ml-[3.5rem] mt-2">
-                  {exp.description}
+                <p className="text-[#F76C6C] font-medium">{item.company}</p>
+                <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">
+                  {item.description}
                 </p>
-              )}
+                <p className="text-gray-500 dark:text-gray-400 text-sm mt-2">
+                  {item.year}
+                </p>
+              </motion.div>
             </div>
-          ))}
-        </div>
+            <div className="hidden md:flex md:w-1/12 justify-center">
+              <motion.div
+                whileHover={{ scale: 1.2 }}
+                className="w-4 h-4 bg-[#F76C6C] rounded-full relative z-10"
+              />
+            </div>
+            <div className="hidden md:block md:w-4/12" />
+          </motion.div>
+        ))}
       </div>
-    </section>
+    </motion.div>
   );
 };
 

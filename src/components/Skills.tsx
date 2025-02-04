@@ -1,5 +1,6 @@
 import React from "react";
 import { skills } from "../data/skills";
+import { motion } from "framer-motion";
 
 interface SkillsProps {
   t: {
@@ -9,21 +10,84 @@ interface SkillsProps {
   };
 }
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
 
-const Skills: React.FC<SkillsProps> = ({t}) => {
+const categoryVariants = {
+  hidden: { opacity: 0, y: 40 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
+};
+
+const skillVariants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  show: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  },
+};
+
+const Skills: React.FC<SkillsProps> = ({ t }) => {
   return (
-    <section id="skills" className="py-32 bg-white dark:bg-dark/50">
+    <motion.section
+      id="skills"
+      className="py-32 bg-white dark:bg-dark/50"
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: false, amount: 0.2 }} 
+      variants={containerVariants}
+    >
       <div className="container mx-auto px-6">
-        <h2 className="text-5xl font-bold text-center mb-16 gradient-text">{t.skills.title}</h2>
-        <div className="grid md:grid-cols-3 gap-12">
+        <motion.h2 
+          className="text-5xl font-bold text-center mb-16 gradient-text"
+          variants={categoryVariants}
+        >
+          {t.skills.title}
+        </motion.h2>
+
+        <motion.div 
+          className="grid md:grid-cols-3 gap-12"
+          variants={containerVariants}
+        >
           {Object.entries(skills).map(([category, items]) => (
-            <div key={category} className="space-y-6">
-              <h3 className="text-3xl font-bold text-primary dark:text-white mb-8">{category}</h3>
-              <div className="grid grid-cols-2 gap-4">
+            <motion.div 
+              key={category} 
+              className="space-y-6"
+              variants={categoryVariants}
+            >
+              <h3 className="text-3xl font-bold text-primary dark:text-white mb-8">
+                {category}
+              </h3>
+
+              <motion.div 
+                className="grid grid-cols-2 gap-4"
+                variants={containerVariants}
+              >
                 {items.map((skill, index) => (
-                  <div
+                  <motion.div
                     key={index}
-                    className="skill-card p-4 rounded-xl text-center transform hover:scale-105 transition-all duration-300"
+                    className="skill-card p-4 rounded-xl text-center 
+                               bg-transparent border border-transparent"
+                    variants={skillVariants}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
                     <p className="text-lg font-medium text-primary dark:text-white mb-2">
                       {skill.name}
@@ -37,14 +101,14 @@ const Skills: React.FC<SkillsProps> = ({t}) => {
                     >
                       {skill.level}
                     </span>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

@@ -41,9 +41,11 @@ const App: React.FC = () => {
         t={translations[language]}  />
       <Hero language={language} t={translations[language]}/>
       <About t={translations[language]}/>
-      <Projects t={translations[language]}/>
       <Skills t={translations[language]}/>
-      <Experience t={translations[language]}/>
+      <div className="overflow-x-hidden">
+        <Experience t={translations[language]} />
+      </div>
+      <Projects t={translations[language]}/>
       <Contact t={translations[language]}/>
     </div>
   );
