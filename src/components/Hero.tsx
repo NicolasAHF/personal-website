@@ -109,7 +109,7 @@ const Hero: React.FC<HeroProps> = ({ t }) => {
             whileTap={{ scale: 0.97 }}
           >
             <img
-              src="/images/profile.jpeg"
+              src="/images/profile.webp"
               alt="Profile Photo"
               className="rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-500"
             />
