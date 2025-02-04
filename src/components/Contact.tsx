@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Linkedin, Github as GitHub, Mail } from "lucide-react";
 
 interface ContactProps {
@@ -14,11 +14,47 @@ interface ContactProps {
       emailLabel: string;
       emailPlaceholcer: string;
       sendMessage: string;
+      sentMessage: string;
+      sending: string;
     };
   };
 }
 
+function encodeForm(data: Record<string, string>) {
+  return Object.keys(data)
+    .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    .join("&");
+}
+
 const Contact: React.FC<ContactProps> = ({t}) => {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSending(true);
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const dataObj: Record<string, string> = {};
+    formData.forEach((value, key) => {
+      dataObj[key] = value.toString();
+    });
+
+    try {
+      await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encodeForm(dataObj),
+      });
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsSending(false);
+    }
+  };
+
   return (
     <section id="contact" className="py-32 hero-gradient dark:bg-black">
       <div className="container mx-auto px-6">
@@ -64,7 +100,14 @@ const Contact: React.FC<ContactProps> = ({t}) => {
             </div>
           </div>
 
-          <form className="space-y-6" netlify>
+          <form onSubmit={handleSubmit} name="contact" method="POST"  data-netlify="true" data-netlify-honeypot="bot-field" className="space-y-6">
+            <input type="hidden" name="form-name" value="contact" />
+            <p className="hidden">
+              <label>
+                Don’t fill this out if you're human:
+                <input name="bot-field" />
+              </label>
+            </p>
             <div>
               <label htmlFor="name" className="block text-lg font-medium text-white mb-2">
                 {t.contact.nameLabel}
@@ -72,8 +115,10 @@ const Contact: React.FC<ContactProps> = ({t}) => {
               <input
                 type="text"
                 id="name"
+                name="name"
                 className="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 focus:border-secondary focus:outline-none text-white"
                 placeholder={t.contact.namePlaceHolder}
+                required
               />
             </div>
             <div>
@@ -83,8 +128,10 @@ const Contact: React.FC<ContactProps> = ({t}) => {
               <input
                 type="email"
                 id="email"
+                name="email"
                 className="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 focus:border-secondary focus:outline-none text-white"
                 placeholder={t.contact.emailPlaceholcer}
+                required
               />
             </div>
             <div>
@@ -93,16 +140,27 @@ const Contact: React.FC<ContactProps> = ({t}) => {
               </label>
               <textarea
                 id="message"
+                name="message"
                 rows={6}
                 className="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 focus:border-secondary focus:outline-none text-white"
                 placeholder={t.contact.messagePlaceholder}
+                required
               ></textarea>
             </div>
             <button
               type="submit"
-              className="w-full px-8 py-4 bg-secondary hover:bg-opacity-90 text-white rounded-xl font-medium transition-all transform hover:scale-105 border-glow"
+              disabled={isSubmitted || isSending}
+              className={`w-full px-8 py-4 rounded-xl font-medium transition-all transform border-glow ${
+                isSubmitted
+                  ? "bg-green-500 cursor-default"
+                  : "bg-secondary hover:bg-opacity-90"
+              } text-white`}
             >
-              {t.contact.sendMessage}
+              {isSubmitted
+                ? t.contact.sentMessage
+                : isSending
+                ? t.contact.sending
+                : t.contact.sendMessage}
             </button>
           </form>
         </div>

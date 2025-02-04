@@ -54,7 +54,9 @@ export const translations = {
         messagePlaceholder: "Your Message",
         emailLabel: "Email",
         emailPlaceholcer: "Your Email",
-        sendMessage: "Send Message"
+        sendMessage: "Send Message",
+        sentMessage: "message sent",
+        sending: "Sending..."
     }
     },
     es: {
@@ -108,7 +110,9 @@ export const translations = {
             messagePlaceholder: "Tu Mensaje",
             emailLabel: "Correo Electronico",
             emailPlaceholcer: "Tu Correo electronico",
-            sendMessage: "Enviar Mensaje"
+            sendMessage: "Enviar Mensaje",
+            sentMessage: "Mensaje Enviado",
+            sending: "Enviando..."
         }
     },
   };

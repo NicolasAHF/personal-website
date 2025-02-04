@@ -9,5 +9,31 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <form name="contact" netlify hidden>
+      <div>
+        <input
+          type="text"
+          id="name"
+          name="name"
+        />
+      </div>
+      <div>
+        <input
+          type="email"
+          id="email"
+          name="email"
+        />
+      </div>
+      <div>
+        <textarea
+          name="message"
+        ></textarea>
+      </div>
+      <button
+        type="submit"
+      >
+        Send Message
+      </button>
+    </form>
   </body>
 </html>

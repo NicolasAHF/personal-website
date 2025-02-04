@@ -109,9 +109,9 @@ const Hero: React.FC<HeroProps> = ({ t }) => {
             whileTap={{ scale: 0.97 }}
           >
             <img
-              src="./src/images/profile.jpeg"
-              alt="Developer workspace"
-              className="rounded-2xl shadow-2xl transform transition-transform duration-500"
+              src="/images/profile.jpeg"
+              alt="Profile Photo"
+              className="rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-500"
             />
           </motion.div>
         </motion.div>
