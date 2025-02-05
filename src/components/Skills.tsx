@@ -56,7 +56,7 @@ const Skills: React.FC<SkillsProps> = ({ t }) => {
     >
       <div className="container mx-auto px-6">
         <motion.h2 
-          className="text-5xl font-bold text-center mb-16 gradient-text"
+          className="text-5xl font-bold text-center mx-auto mb-16 gradient-text"
           variants={categoryVariants}
         >
           {t.skills.title}
@@ -72,7 +72,7 @@ const Skills: React.FC<SkillsProps> = ({ t }) => {
               className="space-y-6"
               variants={categoryVariants}
             >
-              <h3 className="text-3xl font-bold text-primary dark:text-white mb-8">
+              <h3 className="text-3xl font-bold text-center text-primary dark:text-white mb-8">
                 {category}
               </h3>
 

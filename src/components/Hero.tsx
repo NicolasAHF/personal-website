@@ -68,37 +68,35 @@ const Hero: React.FC<HeroProps> = ({ t }) => {
               </span>
             </h1>
 
-            <motion.p
-              className="text-xl text-gray-300 max-w-xl"
-              variants={itemVariants}
-            >
-              Crafting digital experiences through innovative code and creative solutions.
-            </motion.p>
-
             <motion.div 
               className="flex flex-wrap gap-4"
               variants={itemVariants}
             >
-              <motion.button
+              <motion.a
+                href="/cv.pdf"           
+                download                 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="px-8 py-4 bg-secondary hover:bg-opacity-90 text-white 
-                           rounded-full font-medium transition-all 
-                           flex items-center gap-2 border-glow"
+                  rounded-full font-medium transition-all 
+                  flex items-center gap-2 border-glow"
               >
                 <Download size={20} />
                 {t.hero.btnDownload}
-              </motion.button>
+              </motion.a>
 
-              <motion.button
+
+              <motion.a
+                href="#projects"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="px-8 py-4 border-2 border-white/20 
-                           hover:border-secondary text-white rounded-full 
-                           font-medium transition-all"
+                  hover:border-secondary text-white rounded-full 
+                  font-medium transition-all"
               >
                 {t.hero.btnProjects}
-              </motion.button>
+              </motion.a>
+
             </motion.div>
           </motion.div>
 

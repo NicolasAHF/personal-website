@@ -95,7 +95,7 @@ const Contact: React.FC<ContactProps> = ({ t }) => {
               position: "fixed", 
               top: 0, 
               left: 0, 
-              zIndex: 9999,   // para que quede por encima de todo
+              zIndex: 9999,
               pointerEvents: "none" 
             }}
           />
@@ -114,7 +114,7 @@ const Contact: React.FC<ContactProps> = ({ t }) => {
 
             <div className="space-y-6">
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/nicolas-hernandez-b9391818a/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 text-gray-300 hover:text-secondary transition-colors group"

@@ -111,9 +111,16 @@ const About: React.FC<AboutProps> = ({ t }) => {
                 <h4 className="text-xl font-bold text-primary dark:text-white mb-2">
                   {t.about.role}
                 </h4>
+                <div className="flex items-center gap-2 mb-2">
+                <img 
+                    src="/images/oracle.webp"
+                    alt="ORT logo"
+                    className="w-8 h-8 rounded-full object-cover"
+                  />
                 <p className="text-gray-600 dark:text-gray-300">
                   {t.about.roleText}
                 </p>
+                </div>
               </motion.div>
             </div>
           </motion.div>

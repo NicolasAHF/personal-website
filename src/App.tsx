@@ -49,6 +49,7 @@ const App: React.FC = () => {
       <div className="overflow-x-hidden">
       <Contact t={translations[language]}/>
       </div>
+      <Footer />
     </div>
   );
 };

@@ -1,14 +1,22 @@
 import React from "react";
-import { projects } from "../data/projects";
 import { motion } from "framer-motion";
 
 interface ProjectProps {
   t: {
     projects: {
       title: string;
+      items: {
+        title: string;
+        description: string;
+        image: string;
+        technologies: string[];
+        demo: string;
+        github: string;
+      }[];
     };
   };
 }
+
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -20,7 +28,6 @@ const containerVariants = {
   },
 };
 
-// Variantes para cada elemento:
 const itemVariants = {
   hidden: { opacity: 0, y: 50 },
   show: {
@@ -45,14 +52,14 @@ const Projects: React.FC<ProjectProps> = ({ t }) => {
         </h2>
 
         <motion.div
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch"
           variants={containerVariants}
         >
-          {projects.map((project, index) => (
+          {t.projects.items.map((project, index) => (
             <motion.div
               key={index}
               className="project-card rounded-xl overflow-hidden 
-                        bg-white dark:bg-dark/50 shadow-xl"
+                        bg-white dark:bg-dark/50 shadow-xl flex flex-col h-full"
               variants={itemVariants}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
@@ -72,7 +79,7 @@ const Projects: React.FC<ProjectProps> = ({ t }) => {
                 />
               </div>
 
-              <div className="p-8 dark:bg-white/[.05]">
+              <div className="p-8 flex flex-col flex-grow dark:bg-white/[.05]">
                 <h3 className="text-2xl font-bold text-primary dark:text-white mb-4">
                   {project.title}
                 </h3>
