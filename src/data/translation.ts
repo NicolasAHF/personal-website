@@ -35,12 +35,12 @@ export const translations = {
         title: "Featured Projects",
         items: [
           {
-            title: "E-Commerce Platform",
-            description: "A full-featured e-commerce platform with real-time inventory management and payment processing.",
-            technologies: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
-            demo: "https://example.com",
-            github: "https://github.com",
-            image: 'https://images.unsplash.com/photo-1557821552-17105176677c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+            title: "ResumeAI Pro",
+            description: "A groundbreaking AI-powered platform designed to help job seekers optimize their resumes. Our tool provides comprehensive, personalized feedback on your CV, identifying strengths, highlighting areas for improvement, and offering actionable recommendations to enhance your professional profile. By leveraging advanced artificial intelligence, we help candidates create more compelling resumes that stand out in the competitive job market.",
+            technologies: ['React', 'Node.js', 'Supabase', 'OpenAI'],
+            demo: "https://cv-opt-frontend.vercel.app/",
+            github: "https://github.com/NicolasAHF/cv-opt",
+            image: '/images/cv-opt.webp',
           },
           {
             title: "Task Management App",
@@ -117,12 +117,12 @@ export const translations = {
             title: "Proyectos Destacados",
             items: [
               {
-                title: "Plataforma de E-Commerce",
-                description: "Una plataforma de comercio electrónico con gestión de inventario en tiempo real y procesamiento de pagos.",
-                technologies: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
-                demo: "https://example.com",
-                github: "https://github.com",
-                image: 'https://images.unsplash.com/photo-1557821552-17105176677c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                title: "ResumeAI Pro",
+                description: "Una plataforma innovadora impulsada por inteligencia artificial diseñada para ayudar a los candidatos a optimizar sus currículums. Nuestra herramienta ofrece retroalimentación personalizada y completa sobre tu CV, identificando fortalezas, destacando áreas de mejora y proporcionando recomendaciones prácticas para potenciar tu perfil profesional. Mediante inteligencia artificial avanzada, ayudamos a los candidatos a crear currículums más atractivos que destacan en el competitivo mercado laboral.",
+                technologies: ['React', 'Node.js', 'Supabase', 'OpenAI'],
+                demo: "https://cv-opt-frontend.vercel.app/",
+                github: "https://github.com/NicolasAHF/cv-opt",
+                image: '/images/cv-opt.webp',
               },
               {
                 title: "App de Gestión de Tareas",
