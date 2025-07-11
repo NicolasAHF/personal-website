@@ -71,9 +71,11 @@ const Experience: React.FC<ExperienceProps> = ({ t }) => {
                   </h4>
                 </div>
                 <p className="text-[#F76C6C] font-medium">{item.company}</p>
-                <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">
-                  {item.description}
-                </p>
+                <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 text-sm mt-2 space-y-1">
+                  {item.description?.map((point, i) => (
+                    <li key={i}>{point}</li>
+                  ))}
+                </ul>
                 <p className="text-gray-500 dark:text-gray-400 text-sm mt-2">
                   {item.year}
                 </p>
