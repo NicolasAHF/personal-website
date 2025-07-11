@@ -54,12 +54,14 @@ const Experience: React.FC<ExperienceProps> = ({ t }) => {
               index % 2 === 0 ? 'md:flex-row-reverse' : ''
             } items-start md:items-center justify-center mb-8 gap-4`}
           >
-            <div className={`w-full md:w-4/12 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
+            <div className="w-full md:w-4/12">
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg"
+                className={`bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg flex flex-col ${
+                          index % 2 === 0 ? 'md:items-end md:text-right' : 'md:items-start md:text-left'
+                          }`}
                 style={{ borderLeft: `4px solid ${item.color}` }}
-              >
+                >
                 <div className="flex items-center gap-2 mb-2">
                   <img 
                     src={item.logo} 
@@ -71,7 +73,7 @@ const Experience: React.FC<ExperienceProps> = ({ t }) => {
                   </h4>
                 </div>
                 <p className="text-[#F76C6C] font-medium">{item.company}</p>
-                <ul className={`list-disc list-outside text-gray-600 dark:text-gray-300 text-sm mt-2 space-y-1 ${index % 2 === 0 ? 'md:ml-auto' : 'md:pl-5'}`}>
+                <ul className="list-disc list-outside text-gray-600 dark:text-gray-300 text-sm mt-2 space-y-1 pl-5">
                   {item.description?.map((point, i) => (
                     <li key={i}>{point}</li>
                   ))}
